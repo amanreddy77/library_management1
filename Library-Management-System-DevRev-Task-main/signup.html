@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Signup</title>
+    <style>
+        .card {
+            background-image: linear-gradient(315deg, #ffffff 0%, #000000 74%);
+        }
+        
+        .container-fluid {
+            background-image: url('book_login.png');
+            position: relative;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50%;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#signup-form').submit(function(e) {
+                e.preventDefault();
+
+                var name = $('#name').val();
+                var emailid = $('#emailid').val();
+                var pass = $('#pass').val();
+
+                var data = JSON.parse(localStorage.getItem('users')) || [];
+                var user = {
+                    name: name,
+                    emailid: emailid,
+                    pass: pass
+                };
+
+                // check if user already exists
+                var existingUser = data.find(function(u) {
+                    return u.emailid == emailid;
+                });
+                if (existingUser) {
+                    alert('Email already registered!');
+                    return;
+                }
+
+                // add user to local storage
+                data.push(user);
+                localStorage.setItem('users', JSON.stringify(data));
+
+                alert('Signup successful!');
+                // redirect to home page
+                window.location.href = 'home.html';
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <section class="text-center text-lg-start">
+        <div class="container-fluid bg-dark py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+
+                                <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+                                <from id="signup-form" type="get">
+                                    <div class="form-outline form-white mb-4">
+                                        <label class="form-label" for="emailid">Email</label>
+                                        <input type="email" id="emailid" class="form-control form-control-lg" placeholder="Enter email" required/>
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label class="form-label" for="pass">Password</label>
+                                        <input type="password" id="pass" class="form-control form-control-lg" placeholder="Enter password" required/>
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" id="name" class="form-control form-control-lg" placeholder="Enter name" required/>
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label class="form-label" for="mobno">Mobile Number</label>
+                                        <input type="tel" id="mobno" class="form-control form-control-lg" placeholder="Enter mobile number" required/>
+                                    </div>
+
+                                    <button class="btn btn-outline-light btn-lg px-5 text-white" type="submit" id="signup">Register</button>
+
+                                    <br><br>
+                                    <div id="message"></div>
+                                </from>
+                            </div>
+
+                            <div>
+                                <p class="mb-0">Already have an account?<a href="login.html" class="text-white-50 fw-bold">Sign In</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
